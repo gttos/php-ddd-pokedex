@@ -1,0 +1,13 @@
+framework:
+  test: true
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  Pokedex\Tests\:
+    resource: '../../../../tests'
+
+  # -- IMPLEMENTATIONS SELECTOR --
+  Pokedex\Shared\Domain\Bus\Event\EventBus: '@Pokedex\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus'

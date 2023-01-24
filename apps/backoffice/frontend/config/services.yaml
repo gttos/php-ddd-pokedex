@@ -1,0 +1,106 @@
+imports:
+  - { resource: ../../../../src/Backoffice/Shared/Infrastructure/Symfony/DependencyInjection/backoffice_services.yaml }
+  - { resource: ../../../../src/Mooc/Shared/Infrastructure/Symfony/DependencyInjection/mooc_services.yaml }
+
+framework:
+  session:
+    handler_id: null
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  # Configure
+  _instanceof:
+    Pokedex\Shared\Domain\Bus\Event\DomainEventSubscriber:
+      tags: ['pokedex.domain_event_subscriber']
+
+    Pokedex\Shared\Domain\Bus\Command\CommandHandler:
+      tags: ['pokedex.command_handler']
+
+    Pokedex\Shared\Domain\Bus\Query\QueryHandler:
+      tags: ['pokedex.query_handler']
+
+  Pokedex\Apps\Backoffice\Frontend\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
+
+
+  # Wire
+  Pokedex\Shared\:
+    resource: '../../../../src/Shared'
+
+  Pokedex\Backoffice\:
+    resource: '../../../../src/Backoffice'
+
+  Pokedex\Mooc\:
+    resource: '../../../../src/Mooc'
+
+  # -- TAGGING --
+  Pokedex\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
+    arguments: [!tagged pokedex.domain_event_subscriber]
+    lazy: true
+
+  Pokedex\Shared\Infrastructure\Bus\Event\DomainEventMapping:
+    arguments: [!tagged pokedex.domain_event_subscriber]
+
+  Pokedex\Shared\Infrastructure\Bus\Event\DomainEventSubscriberLocator:
+    arguments: [!tagged pokedex.domain_event_subscriber]
+
+  Pokedex\Shared\Infrastructure\Doctrine\DatabaseConnections:
+    arguments: [!tagged pokedex.database_connection]
+
+  Pokedex\Shared\Infrastructure\Symfony\ApiExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, method: onException }
+
+  Pokedex\Shared\Infrastructure\Symfony\AddJsonBodyToRequestListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+
+  # -- APP DEFINITIONS --
+  # Command/Query Handlers
+  Pokedex\Shared\Infrastructure\Bus\Command\InMemorySymfonyCommandBus:
+    arguments: [!tagged pokedex.command_handler]
+
+  Pokedex\Shared\Infrastructure\Bus\Query\InMemorySymfonyQueryBus:
+    arguments: [!tagged pokedex.query_handler]
+
+  # RabbitMQ
+  Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection:
+    arguments:
+      - host: '%env(RABBITMQ_HOST)%'
+        port: '%env(RABBITMQ_PORT)%'
+        vhost: '%env(RABBITMQ_MOOC_VHOST)%'
+        login: '%env(RABBITMQ_LOGIN)%'
+        password: '%env(RABBITMQ_PASSWORD)%'
+        read_timeout: 2
+        write_timeout: 2
+        connect_timeout: 5
+
+  Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus:
+    arguments: ['@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection', '%env(RABBITMQ_EXCHANGE)%']
+
+  Pokedex\Shared\Infrastructure\Elasticsearch\ElasticsearchClient:
+    factory: '@Pokedex\Shared\Infrastructure\Elasticsearch\ElasticsearchClientFactory'
+    arguments:
+      - '%env(BACKOFFICE_ELASTICSEARCH_HOST)%'
+      - '%env(BACKOFFICE_ELASTICSEARCH_INDEX_PREFIX)%'
+      - '%kernel.project_dir%/../../../etc/databases/backoffice'
+      - '%env(APP_ENV)%'
+    public: true
+
+  Pokedex\Shared\Infrastructure\Bus\Event\WithMonitoring\WithPrometheusMonitoringEventBus:
+    arguments: ['@Pokedex\Shared\Infrastructure\Monitoring\PrometheusMonitor', 'backoffice_frontend', '@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus']
+
+  # -- IMPLEMENTATIONS SELECTOR --
+  Pokedex\Shared\Domain\Bus\Event\EventBus: '@Pokedex\Shared\Infrastructure\Bus\Event\WithMonitoring\WithPrometheusMonitoringEventBus'
+  Pokedex\Backoffice\Courses\Domain\BackofficeCourseRepository: '@Pokedex\Backoffice\Courses\Infrastructure\Persistence\ElasticsearchBackofficeCourseRepository'
+
+twig:
+  default_path: '%kernel.project_dir%/templates'
+  strict_variables: true
+  globals:
+    flash: '@Pokedex\Shared\Infrastructure\Symfony\FlashSession'

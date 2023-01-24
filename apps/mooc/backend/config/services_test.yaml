@@ -1,0 +1,14 @@
+framework:
+  test: true
+
+services:
+  _defaults:
+    autoconfigure: true
+    autowire: true
+
+  Pokedex\Tests\:
+    resource: '../../../../tests'
+
+  # Instance selector
+  Pokedex\Shared\Domain\RandomNumberGenerator: '@Pokedex\Tests\Shared\Infrastructure\ConstantRandomNumberGenerator'
+#  Pokedex\Shared\Domain\Bus\Event\EventBus: '@Pokedex\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus'
