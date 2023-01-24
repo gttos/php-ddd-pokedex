@@ -1,3 +1,11 @@
+PHP_MOOC_BACK_CONTAINER_NAME = pokedex-mooc_backend-php
+PHP_BACKOFFICE_FRONT_CONTAINER_NAME = pokedex-backoffice_frontend-php
+PHP_BACKOFFICE_BACK_CONTAINER_NAME = pokedex-backoffice_backend-php
+MYSQL_MOOC_CONTAINER_NAME = pokedex-mooc-mysql
+ELASTIC_BACKOFFICE_CONTAINER_NAME = pokedex-backoffice-elastic
+RABBITMQ_CONTAINER_NAME = pokedex-rabbitmq
+PROMETHEUS_CONTAINER_NAME = pokedex-prometheus
+
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 .PHONY: build
@@ -31,6 +39,18 @@ composer composer-install composer-update composer-require composer-require-modu
 			--ignore-platform-reqs \
 			--no-ansi
 
+.PHONY: shell-bb
+shell-bb:
+	docker exec -it $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) bash
+
+.PHONY: shell-bf
+shell-bf:
+	docker exec -it $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) bash
+
+.PHONY: shell-mysql
+shell-mysql:
+	docker exec -it $(MYSQL_MOOC_CONTAINER_NAME) bash
+
 .PHONY: reload
 reload: composer-env-file
 	@docker-compose exec php-fpm kill -USR2 1
@@ -38,18 +58,18 @@ reload: composer-env-file
 
 .PHONY: test
 test: composer-env-file
-	docker exec pokedex-mooc_backend-php ./vendor/bin/phpunit --testsuite mooc
-	docker exec pokedex-mooc_backend-php ./vendor/bin/phpunit --testsuite shared
-	docker exec pokedex-mooc_backend-php ./vendor/bin/behat -p mooc_backend --format=progress -v
-	docker exec pokedex-backoffice_backend-php ./vendor/bin/phpunit --testsuite backoffice
+	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite mooc
+	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite shared
+	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/behat -p mooc_backend --format=progress -v
+	docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite backoffice
 
 .PHONY: static-analysis
 static-analysis: composer-env-file
-	docker exec pokedex-mooc_backend-php ./vendor/bin/psalm
+	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/psalm
 
 .PHONY: lint
 lint:
-	docker exec pokedex-mooc_backend-php ./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes --dry-run
+	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes --dry-run
 
 .PHONY: run-tests
 run-tests: composer-env-file
@@ -83,7 +103,7 @@ rebuild: composer-env-file
 
 .PHONY: ping-mysql
 ping-mysql:
-	@docker exec pokedex-mooc-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
+	@docker exec $(MYSQL_MOOC_CONTAINER_NAME) mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
 
 .PHONY: ping-elasticsearch
 ping-elasticsearch:
@@ -91,10 +111,10 @@ ping-elasticsearch:
 
 .PHONY: ping-rabbitmq
 ping-rabbitmq:
-	@docker exec pokedex-rabbitmq rabbitmqctl ping --silent
+	@docker exec $(RABBITMQ_CONTAINER_NAME) rabbitmqctl ping --silent
 
 clean-cache:
 	@rm -rf apps/*/*/var
-	@docker exec pokedex-backoffice_backend-php ./apps/backoffice/backend/bin/console cache:warmup
-	@docker exec pokedex-backoffice_frontend-php ./apps/backoffice/frontend/bin/console cache:warmup
-	@docker exec pokedex-mooc_backend-php ./apps/mooc/backend/bin/console cache:warmup
+	@docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./apps/backoffice/backend/bin/console cache:warmup
+	@docker exec $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) ./apps/backoffice/frontend/bin/console cache:warmup
+	@docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./apps/mooc/backend/bin/console cache:warmup
