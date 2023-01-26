@@ -16,7 +16,7 @@ final class DbalTypesSearcher
     public static function inPath(string $path, string $contextName): array
     {
         $possibleDbalDirectories = self::possibleDbalPaths($path);
-        $dbalDirectories         = filter(self::isExistingDbalPath(), $possibleDbalDirectories);
+        $dbalDirectories = filter(self::isExistingDbalPath(), $possibleDbalDirectories);
 
         return reduce(self::dbalClassesSearcher($contextName), $dbalDirectories, []);
     }
@@ -24,7 +24,7 @@ final class DbalTypesSearcher
     private static function modulesInPath(string $path): array
     {
         return filter(
-            static fn (string $possibleModule) => !in_array($possibleModule, ['.', '..'], true),
+            static fn(string $possibleModule) => !in_array($possibleModule, ['.', '..'], true),
             scandir($path)
         );
     }
@@ -43,21 +43,21 @@ final class DbalTypesSearcher
 
     private static function isExistingDbalPath(): callable
     {
-        return static fn (string $path) => !empty($path);
+        return static fn(string $path) => !empty($path);
     }
 
     private static function dbalClassesSearcher(string $contextName): callable
     {
         return static function (array $totalNamespaces, string $path) use ($contextName) {
             $possibleFiles = scandir($path);
-            $files         = filter(
-                static fn ($file) => Utils::endsWith('Type.php', $file),
+            $files = filter(
+                static fn($file) => Utils::endsWith('Type.php', $file),
                 $possibleFiles
             );
 
             $namespaces = map(
                 static function (string $file) use ($path, $contextName) {
-                    $fullPath     = "$path/$file";
+                    $fullPath = "$path/$file";
                     $splittedPath = explode("/src/$contextName/", $fullPath);
 
                     $classWithoutPrefix = str_replace(['.php', '/'], ['', '\\'], $splittedPath[1]);

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://pokedex.com">
+  <a href="https://codely.com">
     <img alt="Codely logo" src="https://user-images.githubusercontent.com/10558907/170513882-a09eee57-7765-4ca4-b2dd-3c2e061fdad0.png" width="300px" height="92px"/>
   </a>
 </p>
@@ -9,8 +9,8 @@
 </h1>
 
 <p align="center">
-    <a href="https://github.com/CodelyTV"><img src="https://img.shields.io/badge/CodelyTV-OS-green.svg?style=flat-square" alt="pokedex.tv"/></a>
-    <a href="http://pro.pokedex.tv"><img src="https://img.shields.io/badge/CodelyTV-PRO-black.svg?style=flat-square" alt="CodelyTV Courses"/></a>
+    <a href="https://github.com/CodelyTV"><img src="https://img.shields.io/badge/CodelyTV-OS-green.svg?style=flat-square" alt="codely.tv"/></a>
+    <a href="http://pro.codely.tv"><img src="https://img.shields.io/badge/CodelyTV-PRO-black.svg?style=flat-square" alt="CodelyTV Courses"/></a>
     <a href="#"><img src="https://img.shields.io/badge/Symfony-5.0-purple.svg?style=flat-square&logo=symfony" alt="Symfony 5.0"/></a>
     <a href="https://github.com/CodelyTV/php-ddd-example/actions"><img src="https://github.com/CodelyTV/php-ddd-example/workflows/CI/badge.svg?branch=master" alt="CI pipeline status" /></a>
 </p>
@@ -137,10 +137,10 @@ There are some things missing (add swagger, improve documentation...), feel free
 some guidelines feel free to contact us :)
 
 ## 🤩 Extra
-This code was shown in the [From framework coupled code to #microservices through #DDD](http://pokedex.tv/screencasts/codigo-acoplado-framework-microservicios-ddd) talk and doubts where answered in the [DDD y CQRS: Preguntas Frecuentes](http://pokedex.tv/screencasts/ddd-cqrs-preguntas-frecuentes/) video.
+This code was shown in the [From framework coupled code to #microservices through #DDD](http://codely.tv/screencasts/codigo-acoplado-framework-microservicios-ddd) talk and doubts where answered in the [DDD y CQRS: Preguntas Frecuentes](http://codely.tv/screencasts/ddd-cqrs-preguntas-frecuentes/) video.
 
 🎥 Used in the CodelyTV Pro courses:
-* [🇪🇸 DDD in PHP](https://pro.pokedex.tv/library/ddd-en-php/about/)
-* [🇪🇸 Arquitectura Hexagonal](https://pro.pokedex.tv/library/arquitectura-hexagonal/66748/about/)
-* [🇪🇸 CQRS: Command Query Responsibility Segregation](https://pro.pokedex.tv/library/cqrs-command-query-responsibility-segregation-3719e4aa/62554/about/)
-* [🇪🇸 Comunicación entre microservicios: Event-Driven Architecture](https://pro.pokedex.tv/library/comunicacion-entre-microservicios-event-driven-architecture/74823/about/)
+* [🇪🇸 DDD in PHP](https://pro.codely.tv/library/ddd-en-php/about/)
+* [🇪🇸 Arquitectura Hexagonal](https://pro.codely.tv/library/arquitectura-hexagonal/66748/about/)
+* [🇪🇸 CQRS: Command Query Responsibility Segregation](https://pro.codely.tv/library/cqrs-command-query-responsibility-segregation-3719e4aa/62554/about/)
+* [🇪🇸 Comunicación entre microservicios: Event-Driven Architecture](https://pro.codely.tv/library/comunicacion-entre-microservicios-event-driven-architecture/74823/about/)

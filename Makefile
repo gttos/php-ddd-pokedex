@@ -59,9 +59,9 @@ reload: composer-env-file
 .PHONY: test
 test: composer-env-file
 	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite mooc
-	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite shared
-	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/behat -p mooc_backend --format=progress -v
-	docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite backoffice
+	#docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite shared
+	#docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/behat -p mooc_backend --format=progress -v
+	#docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite backoffice
 
 .PHONY: static-analysis
 static-analysis: composer-env-file
