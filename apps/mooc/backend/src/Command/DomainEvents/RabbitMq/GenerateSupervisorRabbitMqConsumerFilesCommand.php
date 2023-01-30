@@ -15,10 +15,14 @@ use function Lambdish\Phunctional\each;
 
 final class GenerateSupervisorRabbitMqConsumerFilesCommand extends Command
 {
-    private const EVENTS_TO_PROCESS_AT_TIME           = 200;
+    private const EVENTS_TO_PROCESS_AT_TIME = 200;
     private const NUMBERS_OF_PROCESSES_PER_SUBSCRIBER = 1;
-    private const SUPERVISOR_PATH                     = __DIR__ . '/../../../../build/supervisor';
-    protected static $defaultName = 'pokedex:domain-events:rabbitmq:generate-supervisor-files';
+    private const SUPERVISOR_PATH = __DIR__ . '/../../../../build/supervisor';
+
+    public static function getDefaultName(): string
+    {
+        return 'pokedex:domain-events:rabbitmq:generate-supervisor-files';
+    }
 
     public function __construct(private DomainEventSubscriberLocator $locator)
     {
@@ -34,7 +38,7 @@ final class GenerateSupervisorRabbitMqConsumerFilesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $path = (string) $input->getArgument('command-path');
+        $path = (string)$input->getArgument('command-path');
 
         each($this->configCreator($path), $this->locator->all());
 
@@ -44,7 +48,7 @@ final class GenerateSupervisorRabbitMqConsumerFilesCommand extends Command
     private function configCreator(string $path): callable
     {
         return function (DomainEventSubscriber $subscriber) use ($path): void {
-            $queueName      = RabbitMqQueueNameFormatter::format($subscriber);
+            $queueName = RabbitMqQueueNameFormatter::format($subscriber);
             $subscriberName = RabbitMqQueueNameFormatter::shortFormat($subscriber);
 
             $fileContent = str_replace(

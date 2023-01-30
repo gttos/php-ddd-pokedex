@@ -12,7 +12,10 @@ use Traversable;
 
 final class ConfigureRabbitMqCommand extends Command
 {
-    protected static $defaultName = 'pokedex:domain-events:rabbitmq:configure';
+    public static function getDefaultName(): string
+    {
+        return 'pokedex:domain-events:rabbitmq:configure';
+    }
 
     public function __construct(
         private RabbitMqConfigurer $configurer,

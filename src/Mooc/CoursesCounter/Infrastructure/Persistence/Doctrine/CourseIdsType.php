@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Pokedex\Mooc\CoursesCounter\Infrastructure\Persistence\Doctrine;
 
+use Doctrine\DBAL\Types\ConversionException;
 use Pokedex\Mooc\Shared\Domain\Courses\CourseId;
 use Pokedex\Shared\Infrastructure\Doctrine\Dbal\DoctrineCustomType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -22,15 +23,23 @@ final class CourseIdsType extends JsonType implements DoctrineCustomType
         return self::customTypeName();
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    /**
+     * @return mixed
+     * @throws ConversionException
+     */
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
-        return parent::convertToDatabaseValue(map(fn (CourseId $id) => $id->value(), $value), $platform);
+        return parent::convertToDatabaseValue(map(fn(CourseId $id) => $id->value(), $value), $platform);
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    /**
+     * @return mixed
+     * @throws ConversionException
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform): mixed
     {
         $scalars = parent::convertToPHPValue($value, $platform);
 
-        return map(fn (string $value) => new CourseId($value), $scalars);
+        return map(fn(string $value) => new CourseId($value), $scalars);
     }
 }

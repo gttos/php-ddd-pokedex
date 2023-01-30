@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Pokedex\Shared\Infrastructure\Persistence\Doctrine;
 
+use JetBrains\PhpStorm\Pure;
 use Pokedex\Shared\Domain\Utils;
 use Pokedex\Shared\Domain\ValueObject\Uuid;
 use Pokedex\Shared\Infrastructure\Doctrine\Dbal\DoctrineCustomType;
@@ -25,14 +26,24 @@ abstract class UuidType extends StringType implements DoctrineCustomType
         return self::customTypeName();
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    /**
+     * @param mixed $value
+     * @param AbstractPlatform $platform
+     * @return mixed
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform): mixed
     {
         $className = $this->typeClassName();
 
         return new $className($value);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    /**
+     * @param $value
+     * @param AbstractPlatform $platform
+     * @return mixed
+     */
+    #[Pure] public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         /** @var Uuid $value */
         return $value->value();

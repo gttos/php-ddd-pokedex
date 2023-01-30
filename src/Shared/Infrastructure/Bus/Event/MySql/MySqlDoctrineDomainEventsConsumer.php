@@ -27,14 +27,14 @@ final class MySqlDoctrineDomainEventsConsumer
     {
         $events = $this->connection
             ->executeQuery("SELECT * FROM domain_events ORDER BY occurred_on ASC LIMIT $eventsToConsume")
-            ->fetchAll(FetchMode::ASSOCIATIVE);
+            ->fetchAllAssociative();
 
         each($this->executeSubscribers($subscribers), $events);
 
         $ids = implode(', ', map($this->idExtractor(), $events));
 
         if (!empty($ids)) {
-            $this->connection->executeUpdate("DELETE FROM domain_events WHERE id IN ($ids)");
+            $this->connection->executeStatement("DELETE FROM domain_events WHERE id IN ($ids)");
         }
     }
 

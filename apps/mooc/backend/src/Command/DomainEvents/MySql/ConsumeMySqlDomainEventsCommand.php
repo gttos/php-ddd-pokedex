@@ -16,7 +16,10 @@ use function Lambdish\Phunctional\pipe;
 
 final class ConsumeMySqlDomainEventsCommand extends Command
 {
-    protected static $defaultName = 'pokedex:domain-events:mysql:consume';
+    public static function getDefaultName(): string
+    {
+        return 'pokedex:domain-events:mysql:consume';
+    }
 
     public function __construct(
         private MySqlDoctrineDomainEventsConsumer $consumer,

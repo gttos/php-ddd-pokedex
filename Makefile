@@ -39,6 +39,10 @@ composer composer-install composer-update composer-require composer-require-modu
 			--ignore-platform-reqs \
 			--no-ansi
 
+.PHONY: shell-mb
+shell-mb:
+	docker exec -it $(PHP_MOOC_BACK_CONTAINER_NAME) bash
+
 .PHONY: shell-bb
 shell-bb:
 	docker exec -it $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) bash

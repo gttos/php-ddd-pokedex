@@ -15,7 +15,10 @@ use function Lambdish\Phunctional\repeat;
 
 final class ConsumeRabbitMqDomainEventsCommand extends Command
 {
-    protected static $defaultName = 'pokedex:domain-events:rabbitmq:consume';
+    public static function getDefaultName(): string
+    {
+        return 'pokedex:domain-events:rabbitmq:consume';
+    }
 
     public function __construct(
         private RabbitMqDomainEventsConsumer $consumer,
