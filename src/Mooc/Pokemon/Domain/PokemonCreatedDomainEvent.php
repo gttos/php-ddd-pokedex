@@ -11,6 +11,7 @@ final class PokemonCreatedDomainEvent extends DomainEvent
     public function __construct(
         string $id,
         private readonly string $name,
+        private readonly int $number,
         string $eventId = null,
         string $occurredOn = null
     ) {
@@ -28,18 +29,24 @@ final class PokemonCreatedDomainEvent extends DomainEvent
         string $eventId,
         string $occurredOn
     ): DomainEvent {
-        return new self($aggregateId, $body['name'], $eventId, $occurredOn);
+        return new self($aggregateId, $body['name'], $body['number'], $eventId, $occurredOn);
     }
 
     public function toPrimitives(): array
     {
         return [
-            'name'     => $this->name
+            'name' => $this->name,
+            'number' => $this->number,
         ];
     }
 
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function number(): int
+    {
+        return $this->number;
     }
 }

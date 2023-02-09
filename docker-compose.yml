@@ -51,42 +51,42 @@ services:
       - xpack.security.enabled=false
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
-  backoffice_backend_php:
-    container_name: pokedex-backoffice_backend-php
-    user: "${UID}:${GID}"
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8040:8040"
-      - "9040:9001"
-    volumes:
-      - .:/app:delegated
-    depends_on:
-      - shared_rabbitmq
-      - shared_prometheus
-      - backoffice_elasticsearch
-    command: symfony serve --dir=apps/backoffice/backend/public --port=8040
+#  backoffice_backend_php:
+#    container_name: pokedex-backoffice_backend-php
+#    user: "${UID}:${GID}"
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    ports:
+#      - "8040:8040"
+#      - "9040:9001"
+#    volumes:
+#      - .:/app:delegated
+#    depends_on:
+#      - shared_rabbitmq
+#      - shared_prometheus
+#      - backoffice_elasticsearch
+#    command: symfony serve --dir=apps/backoffice/backend/public --port=8040
 
-  backoffice_frontend_php:
-    container_name: pokedex-backoffice_frontend-php
-    user: "${UID}:${GID}"
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "8041:8041"
-      - "9041:9001"
-    volumes:
-      - .:/app:delegated
-    depends_on:
-      - shared_rabbitmq
-      - shared_prometheus
-      - backoffice_elasticsearch
-      - mooc_mysql
-    command: symfony serve --dir=apps/backoffice/frontend/public --port=8041
+#  backoffice_frontend_php:
+#    container_name: pokedex-backoffice_frontend-php
+#    user: "${UID}:${GID}"
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    ports:
+#      - "8041:8041"
+#      - "9041:9001"
+#    volumes:
+#      - .:/app:delegated
+#    depends_on:
+#      - shared_rabbitmq
+#      - shared_prometheus
+#      - backoffice_elasticsearch
+#      - mooc_mysql
+#    command: symfony serve --dir=apps/backoffice/frontend/public --port=8041
 
   mooc_backend_php:
     container_name: pokedex-mooc_backend-php

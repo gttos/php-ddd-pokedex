@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pokedex\Apps\Backoffice\Backend\Controller\Courses;
+namespace Pokedex\Apps\Backoffice\Backend\Controller\Trainers;
 
 use Pokedex\Backoffice\Courses\Application\BackofficeCourseResponse;
 use Pokedex\Backoffice\Courses\Application\BackofficeCoursesResponse;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use function Lambdish\Phunctional\map;
 
-final class CoursesGetController
+final class TrainerPostController
 {
     public function __construct(private QueryBus $queryBus)
     {

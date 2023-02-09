@@ -60,6 +60,10 @@ reload: composer-env-file
 	@docker-compose exec php-fpm kill -USR2 1
 	@docker-compose exec nginx nginx -s reload
 
+.PHONY: one-phpunit-test
+one-phpunit-test: composer-env-file
+	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite mooc --testdox --filter $(name)
+
 .PHONY: test
 test: composer-env-file
 	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite mooc
@@ -119,6 +123,6 @@ ping-rabbitmq:
 
 clean-cache:
 	@rm -rf apps/*/*/var
-	@docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./apps/backoffice/backend/bin/console cache:warmup
-	@docker exec $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) ./apps/backoffice/frontend/bin/console cache:warmup
+#	@docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./apps/backoffice/backend/bin/console cache:warmup
+#	@docker exec $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) ./apps/backoffice/frontend/bin/console cache:warmup
 	@docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./apps/mooc/backend/bin/console cache:warmup

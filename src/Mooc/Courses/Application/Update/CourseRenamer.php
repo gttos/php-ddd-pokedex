@@ -12,7 +12,7 @@ use Pokedex\Shared\Domain\Bus\Event\EventBus;
 
 final class CourseRenamer
 {
-    private readonly CourseFinder     $finder;
+    private readonly CourseFinder $finder;
 
     public function __construct(private readonly CourseRepository $repository, private readonly EventBus $bus)
     {

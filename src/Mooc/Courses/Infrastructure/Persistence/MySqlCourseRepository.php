@@ -9,7 +9,7 @@ use Pokedex\Mooc\Courses\Domain\CourseRepository;
 use Pokedex\Mooc\Shared\Domain\Courses\CourseId;
 use Pokedex\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-final class DoctrineCourseRepository extends DoctrineRepository implements CourseRepository
+final class MySqlCourseRepository extends DoctrineRepository implements CourseRepository
 {
     public function save(Course $course): void
     {

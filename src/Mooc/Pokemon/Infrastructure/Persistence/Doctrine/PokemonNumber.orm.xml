@@ -4,11 +4,8 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Pokedex\Mooc\Pokemon\Domain\Pokemon" table="pokemon">
-        <id name="id" type="pokemon_id" column="id" length="36" />
-
-        <embedded name="name" class="Pokedex\Mooc\Pokemon\Domain\PokemonName" use-column-prefix="false" />
-        <embedded name="number" class="Pokedex\Mooc\Pokemon\Domain\PokemonNumber" use-column-prefix="false" />
-    </entity>
+    <embeddable name="Pokedex\Mooc\Pokemon\Domain\PokemonNumber">
+        <field name="value" type="integer" column="number" unique="true" />
+    </embeddable>
 
 </doctrine-mapping>

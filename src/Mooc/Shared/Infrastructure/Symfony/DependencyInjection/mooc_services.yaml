@@ -16,7 +16,7 @@ services:
 
 
   # Courses
-  Pokedex\Mooc\Courses\Domain\CourseRepository: '@Pokedex\Mooc\Courses\Infrastructure\Persistence\DoctrineCourseRepository'
+  Pokedex\Mooc\Courses\Domain\CourseRepository: '@Pokedex\Mooc\Courses\Infrastructure\Persistence\MySqlCourseRepository'
 
   # Pokemon
-  Pokedex\Mooc\Pokemon\Domain\PokemonRepository: '@Pokedex\Mooc\Pokemon\Infrastructure\Persistence\DoctrinePokemonRepository'
+  Pokedex\Mooc\Pokemon\Domain\PokemonRepository: '@Pokedex\Mooc\Pokemon\Infrastructure\Persistence\MySqlPokemonRepository'

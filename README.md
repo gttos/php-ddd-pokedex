@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
-  🐘🎯 Hexagonal Architecture, DDD & CQRS in PHP
+    Pokedex PHP // DDD
 </h1>
 
 <p align="center">
@@ -16,19 +16,11 @@
 </p>
 
 <p align="center">
-  Example of a <strong>PHP application using Domain-Driven Design (DDD) and Command Query Responsibility Segregation
+  Piece of <strong>PHP application using Domain-Driven Design (DDD) and Command Query Responsibility Segregation
   (CQRS) principles</strong> keeping the code as simple as possible.
   <br />
   <br />
   Take a look, play and have fun with this.
-  <a href="https://github.com/CodelyTV/php-ddd-example/stargazers">Stars are welcome 😊</a>
-  <br />
-  <br />
-  <a href="https://www.youtube.com/watch?v=1kaP39W80zQ">View Demo</a>
-  ·
-  <a href="https://github.com/CodelyTV/php-ddd-example/issues">Report a bug</a>
-  ·
-  <a href="https://github.com/CodelyTV/php-ddd-example/issues">Request a feature</a>
 </p>
 
 ## 🚀 Environment Setup
@@ -36,7 +28,7 @@
 ### 🐳 Needed tools
 
 1. [Install Docker](https://www.docker.com/get-started)
-2. Clone this project: `git clone https://github.com/CodelyTV/php-ddd-example php-ddd-example`
+2. Clone this project: `git clone https://github.com/gttos/php-ddd-pokedex.git`
 3. Move to the project folder: `cd php-ddd-example`
 
 ### 🛠️ Environment configuration
@@ -55,6 +47,11 @@
 
 1. Install the dependencies if you haven't done it previously: `make deps`
 2. Execute PHPUnit and Behat tests: `make test`
+
+### ✅ Fill Pokemon Database
+
+1. Enter to Pokemon Backoffice Container: `make shell-mb`
+2. Run this command to fill the MySql Database: `php apps/mooc/backend/bin/console pokedex:pokeapi:get $limit` [replace {$limit} variable: example 50]
 
 ## 👩‍💻 Project explanation
 
@@ -111,7 +108,7 @@ If we need some query with more filters we use the `Specification` pattern also 
 `searchByCriteria` method.
 
 You can see an example [here](src/Mooc/Courses/Domain/CourseRepository.php)
-and its implementation [here](src/Mooc/Courses/Infrastructure/Persistence/DoctrineCourseRepository.php).
+and its implementation [here](src/Mooc/Courses/Infrastructure/Persistence/MySqlCourseRepository.php).
 
 ### Aggregates
 You can see an example of an aggregate [here](src/Mooc/Courses/Domain/Course.php). All aggregates should

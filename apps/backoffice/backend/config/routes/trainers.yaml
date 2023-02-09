@@ -1,0 +1,17 @@
+all_trainers_get:
+  path: /trainers
+  controller: Pokedex\Apps\Backoffice\Backend\Controller\Trainers\AllTrainersGetController
+  defaults: { auth: false }
+  methods:  [GET]
+
+trainer_get:
+  path: /trainer/{id}
+  controller: Pokedex\Apps\Backoffice\Backend\Controller\Trainers\OneTrainerGetController
+  defaults: { auth: false }
+  methods:  [GET]
+  
+trainer_post:
+  path: /trainer
+  controller: Pokedex\Apps\Backoffice\Backend\Controller\Trainers\TrainerPostController
+  defaults: { auth: false }
+  methods:  [POST]

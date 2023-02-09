@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Pokedex\Mooc\Pokemon\Application\Create;
+namespace Pokedex\Mooc\Pokemon\Application;
 
-use Pokedex\Shared\Domain\Bus\Command\Command;
+use Pokedex\Shared\Domain\Bus\Query\Response;
 
-final class CreatePokemonCommand implements Command
+final class PokemonResponse implements Response
 {
     public function __construct(
         private readonly string $id,
