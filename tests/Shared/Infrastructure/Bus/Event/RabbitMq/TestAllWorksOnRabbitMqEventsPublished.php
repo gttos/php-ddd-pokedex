@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Pokedex\Tests\Shared\Infrastructure\Bus\Event\RabbitMq;
 
-use Pokedex\Mooc\Courses\Domain\CourseCreatedDomainEvent;
-use Pokedex\Mooc\CoursesCounter\Domain\CoursesCounterIncrementedDomainEvent;
+use Pokedex\Web\Courses\Domain\CourseCreatedDomainEvent;
+use Pokedex\Web\CoursesCounter\Domain\CoursesCounterIncrementedDomainEvent;
 use Pokedex\Shared\Domain\Bus\Event\DomainEventSubscriber;
 
 final class TestAllWorksOnRabbitMqEventsPublished implements DomainEventSubscriber

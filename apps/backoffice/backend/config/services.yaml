@@ -69,7 +69,7 @@ services:
     arguments:
       - host: '%env(RABBITMQ_HOST)%'
         port: '%env(RABBITMQ_PORT)%'
-        vhost: '%env(RABBITMQ_MOOC_VHOST)%'
+        vhost: '%env(RABBITMQ_WEB_VHOST)%'
         login: '%env(RABBITMQ_LOGIN)%'
         password: '%env(RABBITMQ_PASSWORD)%'
         read_timeout: 2

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Pokedex\Tests\Backoffice\Courses\Domain;
 
 use Pokedex\Backoffice\Courses\Domain\BackofficeCourse;
-use Pokedex\Tests\Mooc\Courses\Domain\CourseDurationMother;
-use Pokedex\Tests\Mooc\Courses\Domain\CourseIdMother;
-use Pokedex\Tests\Mooc\Courses\Domain\CourseNameMother;
+use Pokedex\Tests\Web\Courses\Domain\CourseDurationMother;
+use Pokedex\Tests\Web\Courses\Domain\CourseIdMother;
+use Pokedex\Tests\Web\Courses\Domain\CourseNameMother;
 
 final class BackofficeCourseMother
 {

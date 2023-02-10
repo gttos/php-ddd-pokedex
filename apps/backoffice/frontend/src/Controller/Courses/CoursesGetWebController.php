@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Pokedex\Apps\Backoffice\Frontend\Controller\Courses;
 
-use Pokedex\Mooc\CoursesCounter\Application\Find\CoursesCounterResponse;
-use Pokedex\Mooc\CoursesCounter\Application\Find\FindCoursesCounterQuery;
+use Pokedex\Web\CoursesCounter\Application\Find\CoursesCounterResponse;
+use Pokedex\Web\CoursesCounter\Application\Find\FindCoursesCounterQuery;
 use Pokedex\Shared\Domain\ValueObject\Uuid;
 use Pokedex\Shared\Infrastructure\Symfony\WebController;
 use Symfony\Component\HttpFoundation\Request;

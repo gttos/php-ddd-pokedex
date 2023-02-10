@@ -58,8 +58,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Pokedex\\Apps\\Mooc\\Backend\\": "apps/mooc/backend/src",
-      "Pokedex\\Apps\\Mooc\\Frontend\\": "apps/mooc/frontend/src",
+      "Pokedex\\Apps\\Web\\Backend\\": "apps/web/backend/src",
+      "Pokedex\\Apps\\Web\\Frontend\\": "apps/web/frontend/src",
 
       "Pokedex\\Apps\\Backoffice\\Backend\\": "apps/backoffice/backend/src",
       "Pokedex\\Apps\\Backoffice\\Frontend\\": "apps/backoffice/frontend/src",

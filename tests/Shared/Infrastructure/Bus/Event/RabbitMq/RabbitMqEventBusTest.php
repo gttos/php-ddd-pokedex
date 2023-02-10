@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Pokedex\Tests\Shared\Infrastructure\Bus\Event\RabbitMq;
 
-use Pokedex\Apps\Mooc\Backend\MoocBackendKernel;
+use Pokedex\Apps\Web\Backend\WebBackendKernel;
 use Pokedex\Shared\Domain\Bus\Event\DomainEvent;
 use Pokedex\Shared\Infrastructure\Bus\Event\DomainEventJsonDeserializer;
 use Pokedex\Shared\Infrastructure\Bus\Event\MySql\MySqlDoctrineEventBus;
@@ -13,8 +13,8 @@ use Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection;
 use Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqDomainEventsConsumer;
 use Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus;
 use Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqQueueNameFormatter;
-use Pokedex\Tests\Mooc\Courses\Domain\CourseCreatedDomainEventMother;
-use Pokedex\Tests\Mooc\CoursesCounter\Domain\CoursesCounterIncrementedDomainEventMother;
+use Pokedex\Tests\Web\Courses\Domain\CourseCreatedDomainEventMother;
+use Pokedex\Tests\Web\CoursesCounter\Domain\CoursesCounterIncrementedDomainEventMother;
 use Pokedex\Tests\Shared\Infrastructure\PhpUnit\InfrastructureTestCase;
 use RuntimeException;
 use Throwable;
@@ -131,7 +131,7 @@ final class RabbitMqEventBusTest extends InfrastructureTestCase
 
     protected function kernelClass(): string
     {
-        return MoocBackendKernel::class;
+        return WebBackendKernel::class;
     }
 
     private function assertConsumer(DomainEvent ...$expectedDomainEvents): callable

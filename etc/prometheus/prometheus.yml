@@ -15,7 +15,7 @@ scrape_configs:
     static_configs:
       - targets: ['pokedex-backoffice_frontend-php:8041']
 
-  - job_name: 'mooc_backend'
+  - job_name: 'web_backend'
     scrape_interval: 5s
     static_configs:
-      - targets: ['pokedex-mooc_backend-php:8030']
+      - targets: ['pokedex-web_backend-php:8030']

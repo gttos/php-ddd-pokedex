@@ -1,0 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Pokedex\Web\Pokemon\Domain;
+
+use Pokedex\Shared\Domain\ValueObject\StringValueObject;
+
+final class PokemonName extends StringValueObject
+{
+}

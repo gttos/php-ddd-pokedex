@@ -1,4 +1,0 @@
-courses_put:
-  path: /courses/{id}
-  controller: Pokedex\Apps\Mooc\Backend\Controller\Courses\CoursesPutController
-  methods:  [PUT]

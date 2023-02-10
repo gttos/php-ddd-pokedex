@@ -1,7 +1,8 @@
-PHP_MOOC_BACK_CONTAINER_NAME = pokedex-mooc_backend-php
+PHP_WEB_FRONT_CONTAINER_NAME = pokedex-web_frontend-php
+PHP_WEB_BACK_CONTAINER_NAME = pokedex-web_backend-php
 PHP_BACKOFFICE_FRONT_CONTAINER_NAME = pokedex-backoffice_frontend-php
 PHP_BACKOFFICE_BACK_CONTAINER_NAME = pokedex-backoffice_backend-php
-MYSQL_MOOC_CONTAINER_NAME = pokedex-mooc-mysql
+MYSQL_WEB_CONTAINER_NAME = pokedex-web-mysql
 ELASTIC_BACKOFFICE_CONTAINER_NAME = pokedex-backoffice-elastic
 RABBITMQ_CONTAINER_NAME = pokedex-rabbitmq
 PROMETHEUS_CONTAINER_NAME = pokedex-prometheus
@@ -39,21 +40,25 @@ composer composer-install composer-update composer-require composer-require-modu
 			--ignore-platform-reqs \
 			--no-ansi
 
-.PHONY: shell-mb
-shell-mb:
-	docker exec -it $(PHP_MOOC_BACK_CONTAINER_NAME) bash
+.PHONY: shell-wf
+shell-wf:
+	docker exec -it $(PHP_WEB_FRONT_CONTAINER_NAME) bash
 
-.PHONY: shell-bb
-shell-bb:
-	docker exec -it $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) bash
+.PHONY: shell-wb
+shell-wb:
+	docker exec -it $(PHP_WEB_BACK_CONTAINER_NAME) bash
 
 .PHONY: shell-bf
 shell-bf:
 	docker exec -it $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) bash
 
+.PHONY: shell-bb
+shell-bb:
+	docker exec -it $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) bash
+
 .PHONY: shell-mysql
 shell-mysql:
-	docker exec -it $(MYSQL_MOOC_CONTAINER_NAME) bash
+	docker exec -it $(MYSQL_WEB_CONTAINER_NAME) bash
 
 .PHONY: reload
 reload: composer-env-file
@@ -62,30 +67,30 @@ reload: composer-env-file
 
 .PHONY: one-phpunit-test
 one-phpunit-test: composer-env-file
-	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite mooc --testdox --filter $(name)
+	docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite web --testdox --filter $(name)
 
 .PHONY: test
 test: composer-env-file
-	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite mooc
-	#docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite shared
-	#docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/behat -p mooc_backend --format=progress -v
+	docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite web
+	#docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite shared
+	#docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./vendor/bin/behat -p web_backend --format=progress -v
 	#docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./vendor/bin/phpunit --testsuite backoffice
 
 .PHONY: static-analysis
 static-analysis: composer-env-file
-	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/psalm
+	docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./vendor/bin/psalm
 
 .PHONY: lint
 lint:
-	docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes --dry-run
+	docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes --dry-run
 
 .PHONY: run-tests
 run-tests: composer-env-file
 	mkdir -p build/test_results/phpunit
 	./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml --testsuite backoffice
-	./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml --testsuite mooc
+	./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml --testsuite web
 	./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml --testsuite shared
-	./vendor/bin/behat -p mooc_backend --format=progress -v
+	./vendor/bin/behat -p web_backend --format=progress -v
 
 # 🐳 Docker Compose
 .PHONY: start
@@ -111,7 +116,7 @@ rebuild: composer-env-file
 
 .PHONY: ping-mysql
 ping-mysql:
-	@docker exec $(MYSQL_MOOC_CONTAINER_NAME) mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
+	@docker exec $(MYSQL_WEB_CONTAINER_NAME) mysqladmin --user=root --password= --host "127.0.0.1" ping --silent
 
 .PHONY: ping-elasticsearch
 ping-elasticsearch:
@@ -125,4 +130,4 @@ clean-cache:
 	@rm -rf apps/*/*/var
 #	@docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./apps/backoffice/backend/bin/console cache:warmup
 #	@docker exec $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) ./apps/backoffice/frontend/bin/console cache:warmup
-	@docker exec $(PHP_MOOC_BACK_CONTAINER_NAME) ./apps/mooc/backend/bin/console cache:warmup
+	@docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./apps/web/backend/bin/console cache:warmup

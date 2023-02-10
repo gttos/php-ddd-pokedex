@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Pokedex\Backoffice\Courses\Application\Create;
 
-use Pokedex\Mooc\Courses\Domain\CourseCreatedDomainEvent;
+use Pokedex\Web\Courses\Domain\CourseCreatedDomainEvent;
 use Pokedex\Shared\Domain\Bus\Event\DomainEventSubscriber;
 
 final class CreateBackofficeCourseOnCourseCreated implements DomainEventSubscriber

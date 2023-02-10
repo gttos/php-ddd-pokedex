@@ -39,7 +39,7 @@
 
 1. Install all the dependencies and bring up the project with Docker executing: `make build`
 2. Then you'll have 3 apps available (2 APIs and 1 Frontend):
-   1. [Mooc Backend](apps/mooc/backend): http://localhost:8030/health-check
+   1. [Web Backend](apps/web/backend): http://localhost:8030/health-check
    2. [Backoffice Backend](apps/backoffice/backend): http://localhost:8040/health-check
    3. [Backoffice Frontend](apps/backoffice/frontend): http://localhost:8041/health-check
 
@@ -51,16 +51,24 @@
 ### ✅ Fill Pokemon Database
 
 1. Enter to Pokemon Backoffice Container: `make shell-mb`
-2. Run this command to fill the MySql Database: `php apps/mooc/backend/bin/console pokedex:pokeapi:get $limit` [replace {$limit} variable: example 50]
+2. Run this command to fill the MySql Database: `php apps/web/backend/bin/console pokedex:pokeapi:get $limit` [replace {$limit} variable: example 50]
+
+### ✅ API Pokemon 
+
+```
+You might have filled the DB before getting any information from the API.
+```
+1. All Pokemon: `http://0.0.0.0:8030/pokemon`
+2. One Pokemon: `http://0.0.0.0:8030/pokemon/1` 
 
 ## 👩‍💻 Project explanation
 
-This project tries to be a MOOC (Massive Open Online Course) platform. It's decoupled from any framework, but it has
+This project tries to be a WEB (Massive Open Online Course) platform. It's decoupled from any framework, but it has
 some Symfony and Laravel implementations.
 
 ### ⛱️ Bounded Contexts
 
-* [Mooc](src/Mooc): Place to look in if you wanna see some code 🙂. Massive Open Online Courses public platform with users, videos, notifications, and so on.
+* [Web](src/Web): Place to look in if you wanna see some code 🙂. Massive Open Online Courses public platform with users, videos, notifications, and so on.
 * [Backoffice](src/Backoffice): Here you'll find the use cases needed by the Customer Support department in order to manage users, courses, videos, and so on.
 
 ### 🎯 Hexagonal Architecture
@@ -72,8 +80,8 @@ With this, we can see that the current structure of a Bounded Context is:
 $ tree -L 4 src
 
 src
-|-- Mooc // Company subdomain / Bounded Context: Features related to one of the company business lines / products
-|   `-- Videos // Some Module inside the Mooc context
+|-- Web // Company subdomain / Bounded Context: Features related to one of the company business lines / products
+|   `-- Videos // Some Module inside the Web context
 |       |-- Application
 |       |   |-- Create // Inside the application layer all is structured by actions
 |       |   |   |-- CreateVideoCommand.php
@@ -107,11 +115,11 @@ Our repositories try to be as simple as possible usually only containing 2 metho
 If we need some query with more filters we use the `Specification` pattern also known as `Criteria` pattern. So we add a
 `searchByCriteria` method.
 
-You can see an example [here](src/Mooc/Courses/Domain/CourseRepository.php)
-and its implementation [here](src/Mooc/Courses/Infrastructure/Persistence/MySqlCourseRepository.php).
+You can see an example [here](src/Web/Courses/Domain/CourseRepository.php)
+and its implementation [here](src/Web/Courses/Infrastructure/Persistence/MySqlCourseRepository.php).
 
 ### Aggregates
-You can see an example of an aggregate [here](src/Mooc/Courses/Domain/Course.php). All aggregates should
+You can see an example of an aggregate [here](src/Web/Courses/Domain/Course.php). All aggregates should
 extend the [AggregateRoot](src/Shared/Domain/Aggregate/AggregateRoot.php).
 
 ### Command Bus

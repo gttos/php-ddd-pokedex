@@ -25,8 +25,8 @@ services:
     ports:
       - "9999:9090"
 
-  mooc_mysql:
-    container_name: pokedex-mooc-mysql
+  web_mysql:
+    container_name: pokedex-web-mysql
     image: mariadb:10.7.4
     ports:
       - "3360:3306"
@@ -85,11 +85,11 @@ services:
 #      - shared_rabbitmq
 #      - shared_prometheus
 #      - backoffice_elasticsearch
-#      - mooc_mysql
+#      - web_mysql
 #    command: symfony serve --dir=apps/backoffice/frontend/public --port=8041
 
-  mooc_backend_php:
-    container_name: pokedex-mooc_backend-php
+  web_backend_php:
+    container_name: pokedex-web_backend-php
     user: "${UID}:${GID}"
     build:
       context: .
@@ -103,5 +103,5 @@ services:
     depends_on:
       - shared_rabbitmq
       - shared_prometheus
-      - mooc_mysql
-    command: symfony serve --dir=apps/mooc/backend/public --port=8030
+      - web_mysql
+    command: symfony serve --dir=apps/web/backend/public --port=8030

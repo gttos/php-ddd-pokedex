@@ -1,0 +1,22 @@
+services:
+  # Databases
+  Doctrine\ORM\EntityManager:
+    factory: [ Pokedex\Web\Shared\Infrastructure\Doctrine\WebEntityManagerFactory, create ]
+    arguments:
+      - driver: '%env(WEB_DATABASE_DRIVER)%'
+        host: '%env(WEB_DATABASE_HOST)%'
+        port: '%env(WEB_DATABASE_PORT)%'
+        dbname: '%env(WEB_DATABASE_NAME)%'
+        user: '%env(WEB_DATABASE_USER)%'
+        password: '%env(WEB_DATABASE_PASSWORD)%'
+      - '%env(APP_ENV)%'
+    tags:
+      - { name: pokedex.database_connection }
+    public: true
+
+
+  # Courses
+  Pokedex\Web\Courses\Domain\CourseRepository: '@Pokedex\Web\Courses\Infrastructure\Persistence\MySqlCourseRepository'
+
+  # Pokemon
+  Pokedex\Web\Pokemon\Domain\PokemonRepository: '@Pokedex\Web\Pokemon\Infrastructure\Persistence\MySqlPokemonRepository'

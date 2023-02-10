@@ -1,6 +1,6 @@
 imports:
   - { resource: ../../../../src/Backoffice/Shared/Infrastructure/Symfony/DependencyInjection/backoffice_services.yaml }
-  - { resource: ../../../../src/Mooc/Shared/Infrastructure/Symfony/DependencyInjection/mooc_services.yaml }
+  - { resource: ../../../../src/Web/Shared/Infrastructure/Symfony/DependencyInjection/web_services.yaml }
 
 framework:
   session:
@@ -34,8 +34,8 @@ services:
   Pokedex\Backoffice\:
     resource: '../../../../src/Backoffice'
 
-  Pokedex\Mooc\:
-    resource: '../../../../src/Mooc'
+  Pokedex\Web\:
+    resource: '../../../../src/Web'
 
   # -- TAGGING --
   Pokedex\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus:
@@ -73,7 +73,7 @@ services:
     arguments:
       - host: '%env(RABBITMQ_HOST)%'
         port: '%env(RABBITMQ_PORT)%'
-        vhost: '%env(RABBITMQ_MOOC_VHOST)%'
+        vhost: '%env(RABBITMQ_WEB_VHOST)%'
         login: '%env(RABBITMQ_LOGIN)%'
         password: '%env(RABBITMQ_PASSWORD)%'
         read_timeout: 2

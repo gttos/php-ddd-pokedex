@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Pokedex\Apps\Backoffice\Frontend\Controller\Courses;
 
-use Pokedex\Mooc\Courses\Application\Create\CreateCourseCommand;
+use Pokedex\Web\Courses\Application\Create\CreateCourseCommand;
 use Pokedex\Shared\Infrastructure\Symfony\WebController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -1,15 +1,15 @@
 services:
   # Databases
-  # @todo this should be from backoffice, no mooc
+  # @todo this should be from backoffice, no web
   Doctrine\ORM\EntityManager:
-    factory: [ Pokedex\Mooc\Shared\Infrastructure\Doctrine\MoocEntityManagerFactory, create ]
+    factory: [ Pokedex\Web\Shared\Infrastructure\Doctrine\WebEntityManagerFactory, create ]
     arguments:
-      - driver: '%env(MOOC_DATABASE_DRIVER)%'
-        host: '%env(MOOC_DATABASE_HOST)%'
-        port: '%env(MOOC_DATABASE_PORT)%'
-        dbname: '%env(MOOC_DATABASE_NAME)%'
-        user: '%env(MOOC_DATABASE_USER)%'
-        password: '%env(MOOC_DATABASE_PASSWORD)%'
+      - driver: '%env(WEB_DATABASE_DRIVER)%'
+        host: '%env(WEB_DATABASE_HOST)%'
+        port: '%env(WEB_DATABASE_PORT)%'
+        dbname: '%env(WEB_DATABASE_NAME)%'
+        user: '%env(WEB_DATABASE_USER)%'
+        password: '%env(WEB_DATABASE_PASSWORD)%'
       - '%env(APP_ENV)%'
     tags:
       - { name: pokedex.database_connection }
