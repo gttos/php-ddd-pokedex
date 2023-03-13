@@ -14,9 +14,8 @@ services:
       - { name: pokedex.database_connection }
     public: true
 
-
   # Courses
   Pokedex\Web\Courses\Domain\CourseRepository: '@Pokedex\Web\Courses\Infrastructure\Persistence\MySqlCourseRepository'
 
   # Pokemon
-  Pokedex\Web\Pokemon\Domain\PokemonRepository: '@Pokedex\Web\Pokemon\Infrastructure\Persistence\MySqlPokemonRepository'
+  Pokedex\Web\PokemonData\Domain\WebPokemonDataRepository: '@Pokedex\Web\PokemonData\Infrastructure\Persistence\MySqlPokemonRepository'

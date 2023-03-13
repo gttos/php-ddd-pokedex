@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Pokedex\Tests\Web\Pokemon\Domain;
 
-use Pokedex\Web\Shared\Domain\Pokemon\PokemonId;
+use Pokedex\Web\Shared\Domain\WebPokemon\PokemonId;
 use Pokedex\Tests\Shared\Domain\UuidMother;
 
 final class PokemonIdMother

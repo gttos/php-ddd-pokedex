@@ -6,8 +6,7 @@ namespace Pokedex\Tests\Web\Pokemon;
 
 use Pokedex\Web\Pokemon\Domain\Pokemon;
 use Pokedex\Web\Pokemon\Domain\PokemonRepository;
-use Pokedex\Web\Shared\Domain\Courses\CourseId;
-use Pokedex\Web\Shared\Domain\Pokemon\PokemonId;
+use Pokedex\Web\Shared\Domain\WebPokemon\PokemonId;
 use Pokedex\Tests\Shared\Infrastructure\PhpUnit\UnitTestCase;
 use Mockery\MockInterface;
 

@@ -1,0 +1,12 @@
+{% extends 'master.html.twig' %}
+
+{% block page_title %}Pokemon{% endblock %}
+
+{% block main %}
+    <h3 class="font-sans text-gray-800 text-3xl mb-10">Pokemon List</h3>
+    <ol>
+        {% for item in pokemon %}
+            <li>{{ item.name }}</li>
+        {% endfor %}
+    </ol>
+{% endblock %}

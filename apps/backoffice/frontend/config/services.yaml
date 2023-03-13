@@ -26,7 +26,6 @@ services:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
-
   # Wire
   Pokedex\Shared\:
     resource: '../../../../src/Shared'

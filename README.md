@@ -39,9 +39,10 @@
 
 1. Install all the dependencies and bring up the project with Docker executing: `make build`
 2. Then you'll have 3 apps available (2 APIs and 1 Frontend):
-   1. [Web Backend](apps/web/backend): http://localhost:8030/health-check
-   2. [Backoffice Backend](apps/backoffice/backend): http://localhost:8040/health-check
+   1. [Web Frontend](apps/web/frontend): http://localhost:8031/health-check
+   2. [Web Backend](apps/web/backend): http://localhost:8030/health-check
    3. [Backoffice Frontend](apps/backoffice/frontend): http://localhost:8041/health-check
+   4. [Backoffice Backend](apps/backoffice/backend): http://localhost:8040/health-check
 
 ### ✅ Tests execution
 
@@ -50,8 +51,8 @@
 
 ### ✅ Fill Pokemon Database
 
-1. Enter to Pokemon Backoffice Container: `make shell-mb`
-2. Run this command to fill the MySql Database: `php apps/web/backend/bin/console pokedex:pokeapi:get $limit` [replace {$limit} variable: example 50]
+1. Enter to Pokemon Backoffice Container: `make shell-bb`
+2. Run this command to fill the MySql Database: `php apps/backoffice/backend/bin/console pokedex:pokeapi:get $limit` [replace {$limit} variable: example 50]
 
 ### ✅ API Pokemon 
 

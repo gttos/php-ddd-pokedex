@@ -8,14 +8,14 @@ scrape_configs:
   - job_name: 'backoffice_backend'
     scrape_interval: 5s
     static_configs:
-      - targets: ['pokedex-backoffice_backend-php:8040']
+      - targets: ['php-backoffice-backend:8040']
 
   - job_name: 'backoffice_frontend'
     scrape_interval: 5s
     static_configs:
-      - targets: ['pokedex-backoffice_frontend-php:8041']
+      - targets: ['php-backoffice-frontend:8041']
 
   - job_name: 'web_backend'
     scrape_interval: 5s
     static_configs:
-      - targets: ['pokedex-web_backend-php:8030']
+      - targets: ['php-web-backend:8030']

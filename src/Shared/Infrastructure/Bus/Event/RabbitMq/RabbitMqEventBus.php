@@ -38,17 +38,17 @@ final class RabbitMqEventBus implements EventBus
 
     private function publishEvent(DomainEvent $event): void
     {
-        $body       = DomainEventJsonSerializer::serialize($event);
+        $body = DomainEventJsonSerializer::serialize($event);
         $routingKey = $event::eventName();
-        $messageId  = $event->eventId();
+        $messageId = $event->eventId();
 
         $this->connection->exchange($this->exchangeName)->publish(
             $body,
             $routingKey,
             AMQP_NOPARAM,
             [
-                'message_id'       => $messageId,
-                'content_type'     => 'application/json',
+                'message_id' => $messageId,
+                'content_type' => 'application/json',
                 'content_encoding' => 'utf-8',
             ]
         );

@@ -7,7 +7,7 @@ namespace Pokedex\Tests\Web\Pokemon\Domain;
 use Pokedex\Web\Pokemon\Domain\Pokemon;
 use Pokedex\Web\Pokemon\Domain\PokemonCreatedDomainEvent;
 use Pokedex\Web\Pokemon\Domain\PokemonName;
-use Pokedex\Web\Shared\Domain\Pokemon\PokemonId;
+use Pokedex\Web\Shared\Domain\WebPokemon\PokemonId;
 
 final class PokemonCreatedDomainEventMother
 {

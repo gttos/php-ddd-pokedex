@@ -1,16 +1,18 @@
 services:
   # Databases
-  # @todo this should be from backoffice, no web
   Doctrine\ORM\EntityManager:
-    factory: [ Pokedex\Web\Shared\Infrastructure\Doctrine\WebEntityManagerFactory, create ]
+    factory: [ Pokedex\Backoffice\Shared\Infrastructure\Doctrine\BackofficeEntityManagerFactory, create ]
     arguments:
-      - driver: '%env(WEB_DATABASE_DRIVER)%'
-        host: '%env(WEB_DATABASE_HOST)%'
-        port: '%env(WEB_DATABASE_PORT)%'
-        dbname: '%env(WEB_DATABASE_NAME)%'
-        user: '%env(WEB_DATABASE_USER)%'
-        password: '%env(WEB_DATABASE_PASSWORD)%'
+      - driver: '%env(BACKOFFICE_DATABASE_DRIVER)%'
+        host: '%env(BACKOFFICE_DATABASE_HOST)%'
+        port: '%env(BACKOFFICE_DATABASE_PORT)%'
+        dbname: '%env(BACKOFFICE_DATABASE_NAME)%'
+        user: '%env(BACKOFFICE_DATABASE_USER)%'
+        password: '%env(BACKOFFICE_DATABASE_PASSWORD)%'
       - '%env(APP_ENV)%'
     tags:
       - { name: pokedex.database_connection }
     public: true
+
+  # Pokemon
+  Pokedex\Backoffice\Pokemon\Domain\PokemonRepository: '@Pokedex\Backoffice\Pokemon\Infrastructure\Persistence\MySqlPokemonRepository'

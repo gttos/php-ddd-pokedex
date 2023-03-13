@@ -8,7 +8,7 @@ use Pokedex\Web\Pokemon\Application\Create\CreatePokemonCommand;
 use Pokedex\Web\Pokemon\Domain\Pokemon;
 use Pokedex\Web\Pokemon\Domain\PokemonName;
 use Pokedex\Web\Pokemon\Domain\PokemonNumber;
-use Pokedex\Web\Shared\Domain\Pokemon\PokemonId;
+use Pokedex\Web\Shared\Domain\WebPokemon\PokemonId;
 
 final class PokemonMother
 {

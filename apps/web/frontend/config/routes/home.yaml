@@ -1,0 +1,4 @@
+home_get:
+  path: /
+  controller: Pokedex\Apps\Web\Frontend\Controller\Home\HomeGetWebController
+  methods:  [GET]

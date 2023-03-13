@@ -1,0 +1,9 @@
+pokemon_get:
+  path: /pokemon
+  controller: Pokedex\Apps\Backoffice\Backend\Controller\Pokemon\AllPokemonGetController
+  methods:  [GET]
+
+one_pokemon_get:
+  path: /pokemon/{id}
+  controller: Pokedex\Apps\Backoffice\Backend\Controller\Pokemon\OnePokemonGetController
+  methods:  [GET]

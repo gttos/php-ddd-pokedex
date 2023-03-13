@@ -20,28 +20,28 @@ final class ElasticsearchBackofficeCourseRepositoryTest extends BackofficeCourse
     /** @test */
     public function it_should_search_all_existing_courses(): void
     {
-        $existingCourse        = BackofficeCourseMother::create();
+        $existingCourse = BackofficeCourseMother::create();
         $anotherExistingCourse = BackofficeCourseMother::create();
-        $existingCourses       = [$existingCourse, $anotherExistingCourse];
+        $existingCourses = [$existingCourse, $anotherExistingCourse];
 
         $this->elasticRepository()->save($existingCourse);
         $this->elasticRepository()->save($anotherExistingCourse);
 
-        $this->eventually(fn () => $this->assertSimilar($existingCourses, $this->elasticRepository()->searchAll()));
+        $this->eventually(fn() => $this->assertSimilar($existingCourses, $this->elasticRepository()->searchAll()));
     }
 
     /** @test */
     public function it_should_search_all_existing_courses_with_an_empty_criteria(): void
     {
-        $existingCourse        = BackofficeCourseMother::create();
+        $existingCourse = BackofficeCourseMother::create();
         $anotherExistingCourse = BackofficeCourseMother::create();
-        $existingCourses       = [$existingCourse, $anotherExistingCourse];
+        $existingCourses = [$existingCourse, $anotherExistingCourse];
 
         $this->elasticRepository()->save($existingCourse);
         $this->elasticRepository()->save($anotherExistingCourse);
 
         $this->eventually(
-            fn () => $this->assertSimilar(
+            fn() => $this->assertSimilar(
                 $existingCourses,
                 $this->elasticRepository()->matching(CriteriaMother::empty())
             )
@@ -51,10 +51,10 @@ final class ElasticsearchBackofficeCourseRepositoryTest extends BackofficeCourse
     /** @test */
     public function it_should_filter_by_criteria(): void
     {
-        $dddInPhpCourse  = BackofficeCourseMother::create(name: 'DDD en PHP');
+        $dddInPhpCourse = BackofficeCourseMother::create(name: 'DDD en PHP');
         $dddInJavaCourse = BackofficeCourseMother::create(name: 'DDD en Java');
-        $intellijCourse  = BackofficeCourseMother::create(name: 'Exprimiendo Intellij');
-        $dddCourses      = [$dddInPhpCourse, $dddInJavaCourse];
+        $intellijCourse = BackofficeCourseMother::create(name: 'Exprimiendo Intellij');
+        $dddCourses = [$dddInPhpCourse, $dddInJavaCourse];
 
         $nameContainsDddCriteria = BackofficeCourseCriteriaMother::nameContains('DDD');
 
@@ -63,7 +63,7 @@ final class ElasticsearchBackofficeCourseRepositoryTest extends BackofficeCourse
         $this->elasticRepository()->save($intellijCourse);
 
         $this->eventually(
-            fn () => $this->assertSimilar($dddCourses, $this->elasticRepository()->matching($nameContainsDddCriteria))
+            fn() => $this->assertSimilar($dddCourses, $this->elasticRepository()->matching($nameContainsDddCriteria))
         );
     }
 }

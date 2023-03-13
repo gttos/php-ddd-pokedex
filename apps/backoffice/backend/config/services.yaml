@@ -21,6 +21,9 @@ services:
     resource: '../src/Controller'
     tags: ['controller.service_arguments']
 
+  Pokedex\Apps\Backoffice\Backend\Command\:
+    resource: '../src/Command'
+    tags: ['console.command']
 
   # Wire
   Pokedex\Shared\:
@@ -79,6 +82,19 @@ services:
   Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus:
     arguments: ['@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection', '%env(RABBITMQ_EXCHANGE)%']
 
+  Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqDomainEventsConsumer:
+    arguments:
+      - '@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConnection'
+      - '@Pokedex\Shared\Infrastructure\Bus\Event\DomainEventJsonDeserializer'
+      - '%env(RABBITMQ_EXCHANGE)%'
+      - '%env(RABBITMQ_MAX_RETRIES)%'
+
+  Pokedex\Apps\Backoffice\Backend\Command\DomainEvents\RabbitMq\ConfigureRabbitMqCommand:
+    arguments:
+      - '@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqConfigurer'
+      - '%env(RABBITMQ_EXCHANGE)%'
+      - !tagged pokedex.domain_event_subscriber
+
   Pokedex\Shared\Infrastructure\Elasticsearch\ElasticsearchClient:
     factory: '@Pokedex\Shared\Infrastructure\Elasticsearch\ElasticsearchClientFactory'
     arguments:
@@ -90,8 +106,6 @@ services:
 
   Pokedex\Shared\Infrastructure\Bus\Event\WithMonitoring\WithPrometheusMonitoringEventBus:
     arguments: ['@Pokedex\Shared\Infrastructure\Monitoring\PrometheusMonitor', 'backoffice_backend', '@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus']
-
-  # -- IMPLEMENTATIONS SELECTOR --
 
   # -- IMPLEMENTATIONS SELECTOR --
   Pokedex\Shared\Domain\Bus\Event\EventBus: '@Pokedex\Shared\Infrastructure\Bus\Event\WithMonitoring\WithPrometheusMonitoringEventBus'

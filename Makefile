@@ -1,11 +1,17 @@
-PHP_WEB_FRONT_CONTAINER_NAME = pokedex-web_frontend-php
-PHP_WEB_BACK_CONTAINER_NAME = pokedex-web_backend-php
-PHP_BACKOFFICE_FRONT_CONTAINER_NAME = pokedex-backoffice_frontend-php
-PHP_BACKOFFICE_BACK_CONTAINER_NAME = pokedex-backoffice_backend-php
-MYSQL_WEB_CONTAINER_NAME = pokedex-web-mysql
-ELASTIC_BACKOFFICE_CONTAINER_NAME = pokedex-backoffice-elastic
-RABBITMQ_CONTAINER_NAME = pokedex-rabbitmq
-PROMETHEUS_CONTAINER_NAME = pokedex-prometheus
+PHP_WEB_FRONT_CONTAINER_NAME = php-web-frontend
+PHP_WEB_BACK_CONTAINER_NAME = php-web-backend
+
+PHP_BACKOFFICE_FRONT_CONTAINER_NAME = php-backoffice-frontend
+PHP_BACKOFFICE_BACK_CONTAINER_NAME = php-backoffice-backend
+
+MYSQL_WEB_CONTAINER_NAME = mysql-web
+MYSQL_BACKOFFICE_CONTAINER_NAME = mysql-backoffice
+
+ELASTIC_BACKOFFICE_CONTAINER_NAME = elastic-backoffice
+
+RABBITMQ_CONTAINER_NAME = rabbitmq
+
+PROMETHEUS_CONTAINER_NAME = prometheus
 
 current-dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
@@ -56,9 +62,13 @@ shell-bf:
 shell-bb:
 	docker exec -it $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) bash
 
-.PHONY: shell-mysql
-shell-mysql:
+.PHONY: shell-wmysql
+shell-wmysql:
 	docker exec -it $(MYSQL_WEB_CONTAINER_NAME) bash
+
+.PHONY: shell-bmysql
+shell-bmysql:
+	docker exec -it $(MYSQL_BACKOFFICE_CONTAINER_NAME) bash
 
 .PHONY: reload
 reload: composer-env-file
@@ -128,6 +138,7 @@ ping-rabbitmq:
 
 clean-cache:
 	@rm -rf apps/*/*/var
-#	@docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./apps/backoffice/backend/bin/console cache:warmup
-#	@docker exec $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) ./apps/backoffice/frontend/bin/console cache:warmup
+#	@docker exec $(PHP_WEB_FRONT_CONTAINER_NAME) ./apps/web/frontend/bin/console cache:warmup
 	@docker exec $(PHP_WEB_BACK_CONTAINER_NAME) ./apps/web/backend/bin/console cache:warmup
+#	@docker exec $(PHP_BACKOFFICE_FRONT_CONTAINER_NAME) ./apps/backoffice/frontend/bin/console cache:warmup
+	@docker exec $(PHP_BACKOFFICE_BACK_CONTAINER_NAME) ./apps/backoffice/backend/bin/console cache:warmup

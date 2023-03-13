@@ -10,4 +10,4 @@ services:
     resource: '../../../../tests'
 
   # -- IMPLEMENTATIONS SELECTOR --
-  Pokedex\Shared\Domain\Bus\Event\EventBus: '@Pokedex\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus'
+  Pokedex\Shared\Domain\Bus\Event\EventBus: '@Pokedex\Shared\Infrastructure\Bus\Event\RabbitMq\RabbitMqEventBus'
